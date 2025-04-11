@@ -1,0 +1,20 @@
+version: '3.1'
+services:
+  resource-db:
+    container_name: resource-db
+    image: postgres:17.0
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: resources
+    ports:
+      - 5001:5432
+  song-db:
+    container_name: song-db
+    image: postgres:17.0
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: songs
+    ports:
+      - 5002:5432

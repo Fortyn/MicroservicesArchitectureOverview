@@ -1,0 +1,13 @@
+server:
+  port: 8082
+
+spring:
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+     ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5002/songs
+    username: postgres
+    password: postgres
