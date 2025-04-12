@@ -13,6 +13,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.io.ByteArrayInputStream;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -90,16 +91,10 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     private String formatDuration(String raw) {
-        var secondsRaw = Double.parseDouble(raw);
-        var seconds = Math.round(secondsRaw % 60);
-        var minutes = Math.round(secondsRaw / 60);
-        return formatLeadingZero(minutes) + ":" + formatLeadingZero(seconds);
+        var totalSeconds = Double.parseDouble(raw);
+        var duration = Duration.ofSeconds((long) totalSeconds);
+        return String.format("%02d:%02d", duration.toMinutesPart(), duration.toSecondsPart());
     }
-
-    private String formatLeadingZero(long duration) {
-        return duration > 10 ? String.valueOf(duration) : "0%d".formatted(duration);
-    }
-
 
     @Override
     @Transactional
