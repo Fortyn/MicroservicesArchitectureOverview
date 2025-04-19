@@ -1,5 +1,6 @@
 # I prefer to keep yml clean and readable without server.port=${SERVER_PORT:8081}.
 # Spring boot does not see any diff between 'server.port' and 'SERVER_PORT'.
+# Environment variables from compose override those values.
 server:
   port: 8081
 
