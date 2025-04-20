@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS resources
 (
-    id integer PRIMARY KEY,
+    id serial PRIMARY KEY,
     content oid NOT NULL
 );

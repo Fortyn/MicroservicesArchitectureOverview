@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class ResourceEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Lob
