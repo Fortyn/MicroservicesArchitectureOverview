@@ -4,7 +4,14 @@
 server:
   port: 8081
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
 spring:
+  application:
+    name: resource-service
   jpa:
     properties:
       hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -12,5 +19,3 @@ spring:
     url: jdbc:postgresql://localhost:5001/resources
     username: postgres
     password: postgres
-
-song.service.url: http://localhost:8082

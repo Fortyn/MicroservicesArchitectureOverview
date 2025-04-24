@@ -22,6 +22,13 @@ services:
       - 5002:5432
     volumes:
       - ./init-scripts/song-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  eureka-service:
+    container_name: eureka-service
+    build:
+      context: ./eureka-server
+      dockerfile: ./Dockerfile
+    ports:
+      - 8761:8761
   resource-service:
     container_name: resource-service
     build:
@@ -31,13 +38,12 @@ services:
       SPRING_DATASOURCE_URL: ${RESOURCE_POSTGRES_URL}
       SPRING_DATASOURCE_USERNAME: ${RESOURCE_POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${RESOURCE_POSTGRES_PASSWORD}
-      SONG_SERVICE_URL: ${SONG_SERVICE_URL}
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: ${EUREKA_SERVICE_URL}
     depends_on:
       - resource-db
     ports:
       - 8081:8081
   song-service:
-    container_name: song-service
     build:
       context: ./song-service
       dockerfile: ./Dockerfile
@@ -45,8 +51,10 @@ services:
       SPRING_DATASOURCE_URL: ${SONG_POSTGRES_URL}
       SPRING_DATASOURCE_USERNAME: ${SONG_POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${SONG_POSTGRES_PASSWORD}
-      SERVER_PORT: ${SONG_SERVICE_PORT}
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: ${EUREKA_SERVICE_URL}
     depends_on:
       - song-db
+    deploy:
+      replicas: 2
     ports:
-      - 8082:${SONG_SERVICE_PORT}
+      - 8082-8083:8082
